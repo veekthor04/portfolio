@@ -1,0 +1,30 @@
+version: '3'
+
+services:
+
+  app:
+    restart: always
+    build: 
+      context: ./app
+    ports:
+      - "8000:8000"
+    env_file: .env
+    volumes:
+      - ./app:/app
+    command: >
+      sh -c "python wait_for_postgres.py &&
+      python manage.py migrate &&
+      python manage.py collectstatic --noinput &&
+      gunicorn app.wsgi:application --bind 0.0.0.0:8000"
+    depends_on:
+      - db
+  db:
+    restart: always
+    image: postgres:10-alpine
+    ports:
+      - "5432:5432"
+    env_file: .env
+    volumes:
+      - ./db:/var/lib/postgresql/data/
+  redis:
+    image: redis:alpine

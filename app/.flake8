@@ -1,0 +1,8 @@
+[flake8]
+exclude =
+  migrations,
+  static,
+  __pycache__,
+  manage.py,
+  settings.py,
+  wait_for_postgres.py
