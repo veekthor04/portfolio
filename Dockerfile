@@ -1,7 +1,6 @@
 FROM python:3.9-slim
 
 ENV PYTHONUNBUFFERED 1
-ENV PATH="/opt/venv/bin:$PATH"
 
 RUN python -m pip install --upgrade pip
 
@@ -13,6 +12,9 @@ COPY ./app /app
 WORKDIR /app
 
 # collect static files
-RUN python manage.py collectstatic --noinput
+# RUN python manage.py collectstatic --noinput
+
+# run migrate db
+# RUN python manage.py migrate
 
 CMD gunicorn app.wsgi:application --bind 0.0.0.0:$PORT
