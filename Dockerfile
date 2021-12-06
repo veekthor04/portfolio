@@ -11,10 +11,10 @@ RUN mkdir /app
 COPY ./app /app
 WORKDIR /app
 
-# collect static files
+# collect static files.
 # RUN python manage.py collectstatic --noinput
 
-# run migrate db
+# run migrate db.
 # RUN python manage.py migrate
 
 CMD gunicorn app.wsgi:application --bind 0.0.0.0:$PORT
