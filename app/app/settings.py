@@ -100,7 +100,7 @@ else:
     DATABASES = {}
     DATABASE_URL = env('DATABASE_URL')
     db_from_env = dj_database_url.config(default=DATABASE_URL, conn_max_age=500, ssl_require=True)
-    DATABASES['default'].update(db_from_env)
+    DATABASES['default'] = db_from_env
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
